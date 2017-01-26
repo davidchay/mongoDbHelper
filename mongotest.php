@@ -22,7 +22,7 @@
 		'email' => 'g@mail.com'
 	);
 	$hero = array(
-		'_id' => '5888f79fe96aa8a82600002b',
+		'_id' => new MongoId('5888f79fe96aa8a82600002b'),
 		'first_name' => 'Eliot ',
 		'last_name' => 'Horowitz',
 		'address' => '134 Fifth Ave',
@@ -35,21 +35,36 @@
 	//$mongo->getOneID('clientes','5888f79fe96aa8a82600002b');
 	
 	$mongo = new Mongo();
-	$db = $mongo->selectDB('test');
+	$db = $mongo->selectDB('turboAdmin');
 	$collection=$db->selectCollection('numbers');
-	$result=$collection->find()->limit(2);
-	print_r($result);
-	echo "<br>";
+	/*Limite*/
+	//$result=$collection->find()->limit(2);
+	/*Ordenamiento inverso*/
+	//$result=$db->numbers->find()->limit(2)->skip(20)->sort(array('num'=>-1));
+	/*mayor que $gt(>),$lt(<),$gte(>=),$lte(<=)*/
+	//$result=$db->numbers->find(array('num'=>array('$lt'=>15)));
+	/*Array $in(coincidiencias de valor) $nin(diferente) $all (similar a $in)*/
+	//$result=$db->clientes->find(array('colonia'=>array('$in'=>array('centro'))));
+	//$result=$db->clientes->find(array('colonia'=>array('$nin'=>array('centro','las vegas','reforma','5 de febrero'))));
+	$result=$db->clientes->find(array('colonia'=>array('$all'=>array('centro'))));
 	foreach ($result as $document) {
+		echo "<pre>";
 		print_r($document);
+		echo "</pre>";
 	}
-	//Libro pagina 21
+	//Libro pagina 25 Matchets array
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<style>
+		pre{
+			background-color: #f1f1f1;
+		}
+	</style>
 </head>
 <body>
 	
