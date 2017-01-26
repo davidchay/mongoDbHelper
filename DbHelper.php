@@ -9,6 +9,7 @@ class DbHelper {
 		{
 			$this->connection = new Mongo();
 			$this->db = $this->connection->selectDB($db);
+
 		} 
 		catch (MongoConnectionException $e) 
 		{
@@ -16,7 +17,7 @@ class DbHelper {
 		}
 
 	}// contruct
-	public function getCollection ($nameCollection)
+	public function gets ($nameCollection)
 	{
 		$this->collection=$this->db->selectCollection($nameCollection);
 		var_dump( $this->collection->find());
@@ -54,8 +55,8 @@ class DbHelper {
 		* getOneID devuelve un documento de una coleccion
 		* recibe como parametro dos valores el nombre de la coleccion y el id del documento. 
 		*/
-		$datos = $this->db->selectCollection($collection)->findone(array('_id'=>new MongoId($id))) ;
-		return $datos;
+		$datos = $this->db->selectCollection($collection)->findOne(array('_id' => new MongoId($id))) ;
+		var_dump ($datos);
 	}//getOneID
 	public function getOne($collection, $arr, $arr2=array())
 	{

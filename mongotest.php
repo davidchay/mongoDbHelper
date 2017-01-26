@@ -1,8 +1,8 @@
 <?php
 	
-	require_once ('DbHelper.php');
-	$mongo= new DbHelper('turboAdmin');
-	$mongo->getCollection('clientes');
+	//require_once ('DbHelper.php');
+	//$mongo= new DbHelper('turboAdmin');
+	//$mongo->getCollection('clientes');
 	$cliente=array(
 		'nombre' => 'pedro',
 		'direccion' => 'Las vegas',
@@ -31,7 +31,19 @@
 		'zip' => '10010',
 		'superpowers' => array( 'agility', 'super human intelligence', 'wall crawling' ),
 	);
-	$mongo->save('clientes',$hero);
+	//$mongo->save('clientes',$hero);
+	//$mongo->getOneID('clientes','5888f79fe96aa8a82600002b');
+	
+	$mongo = new Mongo();
+	$db = $mongo->selectDB('test');
+	$collection=$db->selectCollection('numbers');
+	$result=$collection->find()->limit(2);
+	print_r($result);
+	echo "<br>";
+	foreach ($result as $document) {
+		print_r($document);
+	}
+	//Libro pagina 21
 ?>
 <!DOCTYPE html>
 <html lang="en">
